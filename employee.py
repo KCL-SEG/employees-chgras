@@ -2,40 +2,50 @@
 """ENTER YOUR SOLUTION HERE!"""
 
 class Employee:
-    def __init__(self, name, payType, pay, hours, contracts, contractPay, bonusPay):
+    def __init__(self, name, salary_type, salary, working_time, commission_type, commission, contract_number):
+        self.working_time = working_time  
+        self.contract_number = contract_number
+        self.commission = commission
+        self.commission_type = commission_type
+        self.salary_type = salary_type
         self.name = name
-        self.payType = payType
-        self.totalPay = 0
-        self.pay = pay
-        self.hours = hours
-        self.contracts = contracts
-        self.contractPay = contractPay
-        self.bonusPay = bonusPay
-        if(self.payType == "Salary"):
-            self.totalPay += self.pay
-        else:
-            self.totalPay += (self.pay * self.hours)
-        if(self.contracts > 0):
-            self.totalPay += (self.contracts * self.contractPay)
-        self.totalPay += self.bonusPay
+        self.salary = salary
 
     def get_pay(self):
-        return self.totalPay
+        no_commission = 0
+        with_commission = 0
+        if self.salary_type == "monthly":
+            no_commission = int(self.salary)
+        elif self.salary_type == "hourly":
+            no_commission = int(self.salary) * int(self.working_time)
+        else:
+            print("sth wrong with salary_type")
+        if self.commission_type == "no":
+            return no_commission
+        elif self.commission_type == "fixed":
+            with_commission = int(self.commission) + no_commission
+            return with_commission
+        elif self.commission_type == "flexible":
+            with_commission = (int(self.commission) * int(self.contract_number)) + no_commission
+            return with_commission
+        else:
+            print("sth wrong with commission_type")
 
     def __str__(self):
-        retString = ""
-        if (self.payType == "Salary"):
-            retString += (self.name + " works on a monthly salary of " + str(self.pay))
-        else:
-            retString += (self.name + " works on a contract of " + str(self.hours) + " hours at " + str(self.pay) + "/hour")
-        if (self.contracts > 0):
-            retString += (" and receives a commission for " + str(self.contracts) + " contract(s) at " + str(self.contractPay) + "/contract.")
-        elif (self.bonusPay > 0):
-            retString += (" and receives a bonus commission of " + str(self.bonusPay) + ".")
-        else:
-            retString += (".")
-        retString += (" Their total pay is " + str(self.totalPay) + ".")
-        return retString
+        if self.salary_type == "monthly":
+            if self.commission_type == "no":
+                return self.name + " works on a " + self.salary_type + " salary of " + str(self.salary) + ". " + "Their total pay is " + str(self.get_pay()) + "."
+            elif self.commission_type == "fixed":
+                return self.name + " works on a " + self.salary_type + " salary of " + str(self.salary) + " and receives a bonus commission of " + str(self.commission) + ". "  + "Their total pay is " + str(self.get_pay()) + "."
+            elif self.commission_type == 'flexible':
+                return self.name + " works on a " + self.salary_type + " salary of " + str(self.salary) + " and receives a commission for " + str(self.contract_number) + " contract(s) at " + str(self.commission) + "/contract" + ". "  + "Their total pay is " + str(self.get_pay()) + "."
+        elif self.salary_type == "hourly":
+            if self.commission_type == "no":
+                return self.name + " works on a contract of " + str(self.working_time) + " hours at " + str(self.salary) + "/hour. " + "Their total pay is " + str(self.get_pay()) + "."
+            elif self.commission_type == "fixed":
+                return self.name + " works on a contract of " + str(self.working_time) + " hours at " + str(self.salary) + "/hour" + " and receives a bonus commission of " + str(self.commission) + ". "  + "Their total pay is " + str(self.get_pay()) + "."
+            elif self.commission_type == 'flexible':
+                return self.name + " works on a contract of " + str(self.working_time) + " hours at " + str(self.salary) + "/hour" + " and receives a commission for " + str(self.contract_number) + " contract(s) at " + str(self.commission) + "/contract" + ". "  + "Their total pay is " + str(self.get_pay()) + "."
 
 # Billie works on a monthly salary of 4000.  Their total pay is 4000.
 billie = Employee('Billie')
