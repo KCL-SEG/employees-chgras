@@ -2,15 +2,40 @@
 """ENTER YOUR SOLUTION HERE!"""
 
 class Employee:
-    def __init__(self, name):
+    def __init__(self, name, payType, pay, hours, contracts, contractPay, bonusPay):
         self.name = name
+        self.payType = payType
+        self.totalPay = 0
+        self.pay = pay
+        self.hours = hours
+        self.contracts = contracts
+        self.contractPay = contractPay
+        self.bonusPay = bonusPay
+        if(self.payType == "Salary"):
+            self.totalPay += self.pay
+        else:
+            self.totalPay += (self.pay * self.hours)
+        if(self.contracts > 0):
+            self.totalPay += (self.contracts * self.contractPay)
+        self.totalPay += self.bonusPay
 
     def get_pay(self):
-        pass
+        return self.totalPay
 
     def __str__(self):
-        return self.name
-
+        retString = ""
+        if (self.payType == "Salary"):
+            retString += (self.name + " works on a monthly salary of " + str(self.pay))
+        else:
+            retString += (self.name + " works on a contract of " + str(self.hours) + " hours at " + str(self.pay) + "/hour")
+        if (self.contracts > 0):
+            retString += (" and receives a commission for " + str(self.contracts) + " contract(s) at " + str(self.contractPay) + "/contract.")
+        elif (self.bonusPay > 0):
+            retString += (" and receives a bonus commission of " + str(self.bonusPay) + ".")
+        else:
+            retString += (".")
+        retString += (" Their total pay is " + str(self.totalPay) + ".")
+        return retString
 
 # Billie works on a monthly salary of 4000.  Their total pay is 4000.
 billie = Employee('Billie')
