@@ -3,7 +3,7 @@
 
 class Employee:
     def __init__(self, name, salary_type, salary, working_time, commission_type, commission, contract_number):
-        self.working_time = working_time  
+        self.working_time = working_time   
         self.contract_number = contract_number
         self.commission = commission
         self.commission_type = commission_type
@@ -47,20 +47,21 @@ class Employee:
             elif self.commission_type == 'flexible':
                 return self.name + " works on a contract of " + str(self.working_time) + " hours at " + str(self.salary) + "/hour" + " and receives a commission for " + str(self.contract_number) + " contract(s) at " + str(self.commission) + "/contract" + ". "  + "Their total pay is " + str(self.get_pay()) + "."
 
-# Billie works on a monthly salary of 4000.  Their total pay is 4000.
-billie = Employee('Billie')
+
+
+billie = Employee('Billie', 'monthly', 4000, 1, 'no', 'no', 'no')
 
 # Charlie works on a contract of 100 hours at 25/hour.  Their total pay is 2500.
-charlie = Employee('Charlie')
+charlie = Employee('Charlie', 'hourly', '25', 100, 'no', 'no', 'no')
 
 # Renee works on a monthly salary of 3000 and receives a commission for 4 contract(s) at 200/contract.  Their total pay is 3800.
-renee = Employee('Renee')
+renee = Employee('Renee', 'monthly', 3000, 1, 'flexible', 200, 4)
 
 # Jan works on a contract of 150 hours at 25/hour and receives a commission for 3 contract(s) at 220/contract.  Their total pay is 4410.
-jan = Employee('Jan')
+jan = Employee('Jan', 'hourly', 25, 150, 'flexible', 220, 3)
 
 # Robbie works on a monthly salary of 2000 and receives a bonus commission of 1500.  Their total pay is 3500.
-robbie = Employee('Robbie')
+robbie = Employee('Robbie', 'monthly', 2000, 1, 'fixed', 1500, 0)
 
 # Ariel works on a contract of 120 hours at 30/hour and receives a bonus commission of 600.  Their total pay is 4200.
-ariel = Employee('Ariel')
+ariel = Employee('Ariel', 'hourly', 30, 120, 'fixed', 600, 0)
